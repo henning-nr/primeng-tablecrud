@@ -6,8 +6,8 @@
       <button
         pButton
         pRipple
-        label="Novo"
-        icon="pi pi-plus-circle"
+        [label]="nameButton"
+        icon="pi pi-plus"
         class="p-button-success p-mr-2"
         (click)="openNew()"
       ></button>
@@ -55,19 +55,19 @@
     [(selection)]="selectedProducts"
     [rowHover]="true"
     dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    currentPageReportTemplate="Exibindo {first} de {last} de {totalRecords} registros"
     [showCurrentPageReport]="true"
   >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Manage Products</h5>
+        <h5 class="p-m-0">Gerenciar Produtos</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input
             pInputText
             type="text"
             (input)="dt.filterGlobal($event.target.value, 'contains')"
-            placeholder="Search..."
+            placeholder="Buscar"
           />
         </span>
       </div>
@@ -101,7 +101,7 @@
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
         <td>{{ product.name }}</td>
-        <td>{{ product.price | currency: 'USD' }}</td>
+        <td>{{ product.price | currency: 'BRL' }}</td>
         <td>{{ product.category }}</td>
         <td>
           <p-rating
@@ -138,7 +138,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{ products ? products.length : 0 }} products.
+        Em um total de {{ products ? products.length : 0 }} produtos.
       </div>
     </ng-template>
   </p-table>
@@ -147,13 +147,13 @@
 <p-dialog
   [(visible)]="productDialog"
   [style]="{ width: '450px' }"
-  header="Product Details"
+  header="Detalhes do produto"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="name">Name</label>
+      <label for="name">Nome</label>
       <input
         type="text"
         pInputText
@@ -163,11 +163,11 @@
         autofocus
       />
       <small class="p-invalid" *ngIf="submitted && !product.name"
-        >Name is required.</small
+        >Nome obrigatório.</small
       >
     </div>
     <div class="p-field">
-      <label for="description">Description</label>
+      <label for="description">Descrição</label>
       <textarea
         id="description"
         pInputTextarea
@@ -179,7 +179,7 @@
     </div>
 
     <div class="p-field">
-      <label class="p-mb-3">Category</label>
+      <label class="p-mb-3">Categoria</label>
       <div class="p-formgrid p-grid">
         <div class="p-field-radiobutton p-col-6">
           <p-radioButton
@@ -188,7 +188,7 @@
             value="Accessories"
             [(ngModel)]="product.category"
           ></p-radioButton>
-          <label for="category1">Accessories</label>
+          <label for="category1">Acessórios</label>
         </div>
         <div class="p-field-radiobutton p-col-6">
           <p-radioButton
@@ -197,7 +197,7 @@
             value="Clothing"
             [(ngModel)]="product.category"
           ></p-radioButton>
-          <label for="category2">Clothing</label>
+          <label for="category2">Vestiário</label>
         </div>
         <div class="p-field-radiobutton p-col-6">
           <p-radioButton
@@ -206,7 +206,7 @@
             value="Electronics"
             [(ngModel)]="product.category"
           ></p-radioButton>
-          <label for="category3">Electronics</label>
+          <label for="category3">Eletrônicos</label>
         </div>
         <div class="p-field-radiobutton p-col-6">
           <p-radioButton
@@ -222,17 +222,17 @@
 
     <div class="p-formgrid p-grid">
       <div class="p-field p-col">
-        <label for="price">Price</label>
+        <label for="price">Preço</label>
         <p-inputNumber
           id="price"
           [(ngModel)]="product.price"
           mode="currency"
-          currency="USD"
-          locale="en-US"
+          currency="BRL"
+          locale="pt-BR"
         ></p-inputNumber>
       </div>
       <div class="p-field p-col">
-        <label for="quantity">Quantity</label>
+        <label for="quantity">Quantidade</label>
         <p-inputNumber
           id="quantity"
           [(ngModel)]="product.quantity"
@@ -245,16 +245,16 @@
     <button
       pButton
       pRipple
-      label="Cancel"
-      icon="pi pi-times"
+      label="Sair"
+      icon="pi pi-sign-out"
       class="p-button-text"
       (click)="hideDialog()"
     ></button>
     <button
       pButton
       pRipple
-      label="Save"
-      icon="pi pi-check"
+      label="Salvar"
+      icon="pi pi-save"
       class="p-button-text"
       (click)="saveProduct()"
     ></button>
